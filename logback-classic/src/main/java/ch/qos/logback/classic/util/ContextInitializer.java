@@ -92,20 +92,20 @@ public class ContextInitializer {
     }
 
     private URL findConfigFileURLFromSystemProperties(ClassLoader classLoader, boolean updateStatus) {
-        String logbackConfigFile = OptionHelper.getSystemProperty(CONFIG_FILE_PROPERTY);
+        String logbackConfigFile = OptionHelper.getSystemProperty(CONFIG_FILE_PROPERTY);  // 看 logback.configurationFile系统参数有没有，我们可以通过 “java -D logback.configurationFile =xxx”设置文件路径
         if (logbackConfigFile != null) {
             URL result = null;
             try {
-                result = new URL(logbackConfigFile);
+                result = new URL(logbackConfigFile);    // 如果有那么就认为使我们设置的logback配置路径， 兼容url配置传参
                 return result;
             } catch (MalformedURLException e) {
                 // so, resource is not a URL:
                 // attempt to get the resource from the class path
-                result = Loader.getResource(logbackConfigFile, classLoader);
+                result = Loader.getResource(logbackConfigFile, classLoader); // 兼容classpath路径传参
                 if (result != null) {
                     return result;
                 }
-                File f = new File(logbackConfigFile);
+                File f = new File(logbackConfigFile);       // 兼容文件路径传参方式
                 if (f.exists() && f.isFile()) {
                     try {
                         result = f.toURI().toURL();
@@ -123,23 +123,23 @@ public class ContextInitializer {
     }
 
     public URL findURLOfDefaultConfigurationFile(boolean updateStatus) {
-        ClassLoader myClassLoader = Loader.getClassLoaderOfObject(this);
+        ClassLoader myClassLoader = Loader.getClassLoaderOfObject(this); //获取加载当前类的classloader，一般都是 AppClassLoader（也可通过ClassLoader.getSystemClassLoader()）获得
         URL url = findConfigFileURLFromSystemProperties(myClassLoader, updateStatus);
         if (url != null) {
             return url;
         }
 
-        url = getResource(TEST_AUTOCONFIG_FILE, myClassLoader, updateStatus);
+        url = getResource(TEST_AUTOCONFIG_FILE, myClassLoader, updateStatus);   // 到classpath下找名为logback-test.xml的文件
         if (url != null) {
             return url;
         }
 
-        url = getResource(GROOVY_AUTOCONFIG_FILE, myClassLoader, updateStatus);
+        url = getResource(GROOVY_AUTOCONFIG_FILE, myClassLoader, updateStatus);  //到classpath下找名为logback.groovy的文件
         if (url != null) {
             return url;
         }
 
-        return getResource(AUTOCONFIG_FILE, myClassLoader, updateStatus);
+        return getResource(AUTOCONFIG_FILE, myClassLoader, updateStatus);  // 到classpath下找名为logback.xml的文件 （所以支持两种格式的配置 .xml和.groovy）
     }
 
     private URL getResource(String filename, ClassLoader myClassLoader, boolean updateStatus) {
@@ -151,12 +151,12 @@ public class ContextInitializer {
     }
 
     public void autoConfig() throws JoranException {
-        StatusListenerConfigHelper.installIfAsked(loggerContext);
+        StatusListenerConfigHelper.installIfAsked(loggerContext);  //判断系统变量logback.statusListenerClass是否设定，设定了则注册，我们可以通过 “java -D logback.statusListenerClass =ch.qos.logback.core.status.NopStatusListener” 设定我们需要的监听器
         URL url = findURLOfDefaultConfigurationFile(true);
         if (url != null) {
             configureByResource(url);
         } else {
-            Configurator c = EnvUtil.loadFromServiceLoader(Configurator.class);
+            Configurator c = EnvUtil.loadFromServiceLoader(Configurator.class); // 如果没有找到对应的文件，就和SLF4JServiceProvider一样，通过ServiceLoader加载（找半天只找到了这个\logback-classic\src\test\resources\META-INF\services\DISABLED-ch.qos.logback.classic.spi.Configurator），显然如果我们没有配置的话就是没有，也就是说除了 groovy和xml方式，我们还以自己写Configurator类来实现配置
             if (c != null) {
                 try {
                     c.setContext(loggerContext);
@@ -166,7 +166,7 @@ public class ContextInitializer {
                                     .getCanonicalName() : "null"), e);
                 }
             } else {
-                BasicConfigurator basicConfigurator = new BasicConfigurator();
+                BasicConfigurator basicConfigurator = new BasicConfigurator();      //  最后的最后。。啥都没有就按照 就只有加载系统默认的配置了
                 basicConfigurator.setContext(loggerContext);
                 basicConfigurator.configure(loggerContext);
             }

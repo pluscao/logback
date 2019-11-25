@@ -35,7 +35,7 @@ public class LogbackServiceProvider implements SLF4JServiceProvider {
     
     @Override
     public void initialize() {
-        defaultLoggerContext = new LoggerContext();
+        defaultLoggerContext = new LoggerContext();  //  创建 loggerContext对象 ，创建了logger的缓存（一个concurrentHashMap）和一个根looger
         defaultLoggerContext.setName(CoreConstants.DEFAULT_CONTEXT_NAME);
         initializeLoggerContext();
         markerFactory = new BasicMarkerFactory();
