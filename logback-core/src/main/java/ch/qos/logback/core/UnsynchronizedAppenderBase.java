@@ -62,12 +62,12 @@ abstract public class UnsynchronizedAppenderBase<E> extends ContextAwareBase imp
         // doAppend() method.
 
         // prevent re-entry.
-        if (Boolean.TRUE.equals(guard.get())) {
+        if (Boolean.TRUE.equals(guard.get())) {  // 线程守卫设置在ThreadLocal里面，防止二次进入 666
             return;
         }
 
         try {
-            guard.set(Boolean.TRUE);
+            guard.set(Boolean.TRUE); // 线程守卫设置在ThreadLocal里面
 
             if (!this.started) {
                 if (statusRepeatCount++ < ALLOWED_REPEATS) {
@@ -76,19 +76,19 @@ abstract public class UnsynchronizedAppenderBase<E> extends ContextAwareBase imp
                 return;
             }
 
-            if (getFilterChainDecision(eventObject) == FilterReply.DENY) {
+            if (getFilterChainDecision(eventObject) == FilterReply.DENY) { //？？？
                 return;
             }
 
             // ok, we now invoke derived class' implementation of append
-            this.append(eventObject);
+            this.append(eventObject); // 在这里处理打印事件
 
         } catch (Exception e) {
             if (exceptionCount++ < ALLOWED_REPEATS) {
                 addError("Appender [" + name + "] failed to append.", e);
             }
         } finally {
-            guard.set(Boolean.FALSE);
+            guard.set(Boolean.FALSE);  // 线程守卫撤除
         }
     }
 

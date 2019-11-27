@@ -372,10 +372,10 @@ public final class Logger implements org.slf4j.Logger, LocationAwareLogger, Appe
     private void filterAndLog_0_Or3Plus(final String localFQCN, final Marker marker, final Level level, final String msg, final Object[] params,
                     final Throwable t) {
 
-        final FilterReply decision = loggerContext.getTurboFilterChainDecision_0_3OrMore(marker, this, level, msg, params, t);
+        final FilterReply decision = loggerContext.getTurboFilterChainDecision_0_3OrMore(marker, this, level, msg, params, t);  //？？？
 
         if (decision == FilterReply.NEUTRAL) {
-            if (effectiveLevelInt > level.levelInt) {
+            if (effectiveLevelInt > level.levelInt) { //当前待打印的日志级别比logger配置的高，所以不打印
                 return;
             }
         } else if (decision == FilterReply.DENY) {
@@ -418,9 +418,9 @@ public final class Logger implements org.slf4j.Logger, LocationAwareLogger, Appe
 
     private void buildLoggingEventAndAppend(final String localFQCN, final Marker marker, final Level level, final String msg, final Object[] params,
                     final Throwable t) {
-        LoggingEvent le = new LoggingEvent(localFQCN, this, level, msg, t, params);
+        LoggingEvent le = new LoggingEvent(localFQCN, this, level, msg, t, params);     // 生成一个待处理的日志事件
         le.setMarker(marker);
-        callAppenders(le);
+        callAppenders(le);  // 唤起appender处理日志事件
     }
 
     public void trace(String msg) {

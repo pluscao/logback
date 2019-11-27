@@ -33,7 +33,7 @@ import ch.qos.logback.core.spi.ContextAwareBase;
  * accepting client connections via its {@code ServerListener}.  As each
  * new {@link Client} is accepted, the client is configured with the 
  * runner's LoggingContext and is then passed to the {@code 
- * Executor} for concurrent execution of the client's service loop.     
+ * Executor} for concurrent execution of the client's services loop.
  * <p>
  * On invocation of the {@link #stop()} method, the runner closes the listener
  * and each of the connected clients (by invoking {@link Client#close()} 

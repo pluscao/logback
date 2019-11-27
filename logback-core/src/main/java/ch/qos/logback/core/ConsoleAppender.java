@@ -43,8 +43,8 @@ public class ConsoleAppender<E> extends OutputStreamAppender<E> {
     private final static String WindowsAnsiOutputStream_CLASS_NAME = "org.fusesource.jansi.WindowsAnsiOutputStream";
 
     /**
-     * Sets the value of the <b>Target</b> option. Recognized values are
-     * "System.out" and "System.err". Any other value will be ignored.
+     * sets the value of the <b>target</b> option. recognized values are
+     * "system.out" and "system.err". any other value will be ignored.
      */
     public void setTarget(String value) {
         ConsoleTarget t = ConsoleTarget.findByName(value.trim());

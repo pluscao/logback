@@ -28,7 +28,7 @@ interface RemoteAppenderClient extends Client {
     /**
      * Sets the client's logger context.
      * <p>
-     * This provides the local logging context to the client's service thread,
+     * This provides the local logging context to the client's services thread,
      * and is used as the destination for logging events received from the
      * client.
      * <p>

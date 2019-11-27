@@ -55,6 +55,6 @@ public class BasicConfigurator extends ContextAwareBase implements Configurator 
         ca.start();
 
         Logger rootLogger = lc.getLogger(Logger.ROOT_LOGGER_NAME);
-        rootLogger.addAppender(ca);
+        rootLogger.addAppender(ca); // 会把appender放到logger的数组里面去
     }
 }

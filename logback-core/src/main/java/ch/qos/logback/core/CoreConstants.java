@@ -21,7 +21,7 @@ public class CoreConstants {
     final public static String SYSOUT = "SYSOUT";
 
     /**
-     * Number of idle threads to retain in a context's executor service.
+     * Number of idle threads to retain in a context's executor services.
      */
     public static final int CORE_POOL_SIZE = 0;
 
@@ -35,7 +35,7 @@ public class CoreConstants {
 
     
     /**
-     * Maximum number of threads to allow in a context's executor service.
+     * Maximum number of threads to allow in a context's executor services.
      */
     // if you need a different MAX_POOL_SIZE, please file create a jira issue
     // asking to make MAX_POOL_SIZE a parameter.

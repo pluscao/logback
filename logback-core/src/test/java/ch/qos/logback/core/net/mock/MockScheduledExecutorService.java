@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * An {@link ScheduledExecutorService} with instrumentation for unit testing.
  * <p>
- * This service is synchronous; submitted jobs are run on the calling thread.
+ * This services is synchronous; submitted jobs are run on the calling thread.
  *
  * @author Carl Harris
  */

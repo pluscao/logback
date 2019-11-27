@@ -54,8 +54,8 @@ public class ExecutorServiceUtil {
 
 
     /**
-     * Creates an executor service suitable for use by logback components.
-     * @return executor service
+     * Creates an executor services suitable for use by logback components.
+     * @return executor services
      */
     static public ExecutorService newExecutorService() {
         return new ThreadPoolExecutor(CoreConstants.CORE_POOL_SIZE, CoreConstants.MAX_POOL_SIZE, 0L, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>(),
@@ -63,9 +63,9 @@ public class ExecutorServiceUtil {
     }
 
     /**
-     * Shuts down an executor service.
+     * Shuts down an executor services.
      * <p>
-     * @param executorService the executor service to shut down
+     * @param executorService the executor services to shut down
      */
     static public void shutdown(ExecutorService executorService) {
         executorService.shutdownNow();

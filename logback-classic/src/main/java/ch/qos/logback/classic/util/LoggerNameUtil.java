@@ -37,12 +37,12 @@ public class LoggerNameUtil {
      */
     public static int getSeparatorIndexOf(String name, int fromIndex) {
         int dotIndex = name.indexOf(CoreConstants.DOT, fromIndex);
-        int dollarIndex = name.indexOf(CoreConstants.DOLLAR, fromIndex);
+        int dollarIndex = name.indexOf(CoreConstants.DOLLAR, fromIndex);  // 原来 . 和 $ 都是用来分隔层级的
 
         if (dotIndex == -1 && dollarIndex == -1)
             return -1;
         if (dotIndex == -1)
-            return dollarIndex;
+        return dollarIndex;
         if (dollarIndex == -1)
             return dotIndex;
 

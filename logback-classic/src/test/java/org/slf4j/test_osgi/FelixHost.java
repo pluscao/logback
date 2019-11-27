@@ -54,8 +54,8 @@ public class FelixHost {
         // configMap.put(FelixConstants.EMBEDDED_EXECUTION_PROP, "true");
         // Add core OSGi packages to be exported from the class path
         // via the system bundle.
-        configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES, "org.osgi.framework; version=1.3.0," + "org.osgi.service.packageadmin; version=1.2.0,"
-                        + "org.osgi.service.startlevel; version=1.0.0," + "org.osgi.service.url; version=1.0.0");
+        configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES, "org.osgi.framework; version=1.3.0," + "org.osgi.services.packageadmin; version=1.2.0,"
+                        + "org.osgi.services.startlevel; version=1.0.0," + "org.osgi.services.url; version=1.0.0");
 
         configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, Constants.FRAMEWORK_STORAGE_CLEAN_ONFIRSTINIT);
 

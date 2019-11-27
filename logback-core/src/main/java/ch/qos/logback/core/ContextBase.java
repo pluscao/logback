@@ -151,14 +151,14 @@ public class ContextBase implements Context, LifeCycle {
     }
 
     public void start() {
-        // We'd like to create the executor service here, but we can't;
+        // We'd like to create the executor services here, but we can't;
         // ContextBase has not always implemented LifeCycle and there are *many*
         // uses (mostly in tests) that would need to be modified.
         started = true;
     }
 
     public void stop() {
-        // We don't check "started" here, because the executor service uses
+        // We don't check "started" here, because the executor services uses
         // lazy initialization, rather than being created in the start method
         stopExecutorService();
 
