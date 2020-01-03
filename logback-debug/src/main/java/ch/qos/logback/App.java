@@ -15,7 +15,9 @@ public class App
     public static void main( String[] args )
     {
         Logger logger = LoggerFactory.getLogger("chapters.introduction.HelloWorld1");
-        logger.debug("Hello world!");
+        String var = "world!";
+        logger.debug("Hello "  + var);
+        logger.debug("Hello {}"  , var);
 
         // print internal state
         LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
